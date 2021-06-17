@@ -3,6 +3,10 @@ python:
   - 3.9
 services:
   - docker
+
+before_install:
+  - echo $DOCKERHUB_TOKEN | docker login --username $DOCKERHUB_USER --
+password-stdin
 before_script: pip install docker-compose
 script:
   - docker-compose run app sh -c "python manage.py test && flake8"
